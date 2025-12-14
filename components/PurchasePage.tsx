@@ -113,38 +113,6 @@ const PurchasePage: React.FC = () => {
 
   return (
     <div className="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen">
-      {/* Estilos para a animação de transição suave e pulsação */}
-      <style>{`
-        @keyframes fadeInScale {
-          from { opacity: 0.6; transform: scale(0.98); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes neonPulse {
-          0%, 100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.5), 0 0 20px rgba(34, 197, 94, 0.3); transform: scale(1); }
-          50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.5); transform: scale(1.05); }
-        }
-        @keyframes borderGlow {
-          0%, 100% { border-color: rgba(34, 197, 94, 0.5); }
-          50% { border-color: rgba(34, 197, 94, 1); }
-        }
-        .animate-fade-in {
-          animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-neon-pulse {
-          animation: neonPulse 2s infinite ease-in-out;
-        }
-        .animate-border-glow {
-          animation: borderGlow 3s infinite alternate;
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
-
       {/* --- MODAL DE AJUDA / PROBLEMAS --- */}
       {isHelpModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">

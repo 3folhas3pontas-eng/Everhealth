@@ -71,7 +71,7 @@ const ExcellenceDetail: React.FC = () => {
                 <img 
                   alt="Faca do chef premium flutuando com iluminação dramática" 
                   className="max-w-full max-h-full object-contain transform-gpu drop-shadow-[0_20px_50px_rgba(119,56,255,0.25)] filter contrast-125 rounded-2xl" 
-                  src="https://i.imgur.com/9bDQosV.jpeg"
+                  src="https://i.imgur.com/hBIRjZU.jpeg"
                 />
               </div>
             </div>
