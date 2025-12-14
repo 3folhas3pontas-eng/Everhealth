@@ -185,13 +185,13 @@ const PurchasePage: React.FC = () => {
 
       <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
         <div className="layout-container flex h-full grow flex-col">
-          <div className="w-full flex justify-start px-4 pt-4 md:px-8">
+          <div className="w-full flex justify-start px-4 pt-8 md:px-8 z-20">
             <button 
               onClick={() => navigate('/')} 
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary transition-colors font-medium cursor-pointer"
+              className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/50 dark:bg-[#1f1b28]/50 backdrop-blur-md border border-slate-200 dark:border-white/10 text-slate-600 dark:text-gray-300 font-bold text-sm hover:bg-white dark:hover:bg-[#2a2438] hover:border-primary/50 hover:text-primary dark:hover:text-white transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-primary/10 transform hover:-translate-x-1"
             >
-              <span className="material-symbols-outlined">arrow_back</span>
-              Voltar para o site
+              <span className="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:-translate-x-1">arrow_back</span>
+              <span className="uppercase tracking-wider text-xs font-extrabold">Voltar ao Início</span>
             </button>
           </div>
           <main className="flex-1">
