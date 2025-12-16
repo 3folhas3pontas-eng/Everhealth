@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useRouter } from './RouterContext';
 
@@ -101,7 +102,7 @@ const WhyChooseUs: React.FC = () => {
                 <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>group</span>
               </div>
               <div className="flex flex-col gap-1">
-                <h4 className="text-slate-800 dark:text-white text-base font-bold leading-tight">Mais de 100.000 Clientes Satisfeitos</h4>
+                <h4 className="text-slate-800 dark:text-white text-base font-bold leading-tight">Mais de 5.000 Clientes Satisfeitos</h4>
                 <p className="text-slate-600 dark:text-[#a59abc] text-sm font-normal leading-normal">Junte-se à nossa comunidade de chefs e entusiastas.</p>
               </div>
             </div>
