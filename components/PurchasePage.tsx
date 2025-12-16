@@ -344,7 +344,7 @@ const PurchasePage: React.FC = () => {
                     <div className="flex flex-col sm:flex-row gap-3">
                       <button 
                         onClick={handleBuyClick}
-                        className={`flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 text-white text-base font-bold leading-normal tracking-[0.015em] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 ${isBraipActive ? 'bg-green-600 hover:bg-green-700 shadow-green-900/20' : 'bg-primary hover:bg-primary/90 shadow-primary/20'}`}
+                        className={`flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 text-white text-base font-bold leading-normal tracking-[0.015em] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 bg-[#25D366] hover:bg-[#20b858] shadow-[#25D366]/20`}
                       >
                         <span className="truncate">
                           {isBraipActive ? "Comprar (Entrega Ativada)" : "Comprar Agora"}

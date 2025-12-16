@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useRouter } from './RouterContext';
 
@@ -55,7 +56,7 @@ const Guarantee: React.FC = () => {
           </div>
           <button 
             onClick={() => navigate('/comprar')}
-            className="bg-primary hover:bg-primary/90 text-white font-bold text-lg py-4 px-12 rounded-xl shadow-[0_8px_30px_rgba(119,56,255,0.4)] transition-all duration-300 transform hover:scale-105 hover:shadow-[0_8px_40px_rgba(119,56,255,0.6)]"
+            className="bg-[#25D366] hover:bg-[#20b858] text-white font-bold text-lg py-4 px-12 rounded-xl shadow-[0_8px_30px_rgba(37,211,102,0.4)] transition-all duration-300 transform hover:scale-105 hover:shadow-[0_8px_40px_rgba(37,211,102,0.6)]"
           >
             Comprar Agora
           </button>

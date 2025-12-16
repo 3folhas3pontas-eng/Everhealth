@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
             <div className="flex justify-center">
               <button 
                 onClick={() => navigate('/comprar')}
-                className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-wide transition-colors hover:bg-primary/90"
+                className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#25D366] text-white text-base font-bold leading-normal tracking-wide transition-colors hover:bg-[#20b858]"
               >
                 <span className="truncate">Adquira sua Everhealth™</span>
               </button>
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
                 href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 w-full flex items-center justify-center gap-3 px-6 py-4 text-base font-bold bg-primary text-white rounded-xl hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25 hover:-translate-y-1 hover:shadow-primary/40"
+                className="mt-1 w-full flex items-center justify-center gap-3 px-6 py-4 text-base font-bold bg-[#25D366] text-white rounded-xl hover:bg-[#20b858] transition-all duration-300 shadow-lg shadow-[#25D366]/25 hover:-translate-y-1 hover:shadow-[#25D366]/40"
               >
                 <span className="material-symbols-outlined">chat</span>
                 Fale Conosco

@@ -159,7 +159,7 @@ const DetailsModal: React.FC<DetailsModalProps> = ({ isOpen, onClose, initialTab
             </button>
             <button 
               onClick={onBuy}
-              className="px-6 py-2.5 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 text-sm flex items-center gap-2"
+              className="px-6 py-2.5 rounded-lg bg-[#25D366] text-white font-bold hover:bg-[#20b858] transition-colors shadow-lg shadow-[#25D366]/20 text-sm flex items-center gap-2"
             >
               <span>Eu Quero</span>
               <span className="material-symbols-outlined text-sm">arrow_forward</span>

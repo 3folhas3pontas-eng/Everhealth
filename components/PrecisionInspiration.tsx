@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useRouter } from './RouterContext';
 
@@ -30,7 +31,7 @@ const PrecisionInspiration: React.FC = () => {
 
             <div className="flex flex-col gap-3 text-center text-white w-full max-w-2xl mt-auto drop-shadow-lg">
               <h1 className="text-4xl font-black leading-tight tracking-tight md:text-6xl text-white">
-                Precisão que Inspira.
+                O Corte Profissional que Faltava na Sua Cozinha
               </h1>
               <h2 className="text-base font-medium leading-relaxed text-white/90 md:text-xl">
                 Forjada para um corte impecável. Sinta o controle absoluto em cada movimento.
@@ -39,9 +40,9 @@ const PrecisionInspiration: React.FC = () => {
             
             <button 
               onClick={() => navigate('/comprar')}
-              className="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary hover:bg-primary/90 transition-all text-white text-base font-bold leading-normal tracking-wide shadow-lg hover:shadow-primary/25 hover:scale-105"
+              className="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-[#25D366] hover:bg-[#20b858] transition-all text-white text-base font-bold leading-normal tracking-wide shadow-lg hover:shadow-[#25D366]/25 hover:scale-105"
             >
-              <span className="truncate">Descubra a Coleção</span>
+              <span className="truncate">QUERO PAGAR NA ENTREGA</span>
             </button>
 
             <div className="mt-8 flex flex-col items-center gap-2 text-white/50">
