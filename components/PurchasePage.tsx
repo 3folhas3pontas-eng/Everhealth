@@ -3,36 +3,46 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from './RouterContext';
 
 // Configuração dos Kits (Preços e Links)
-const PRODUCT_CONFIG: Record<number, { url: string; braipUrl: string; price: string; installment: string }> = {
+const PRODUCT_CONFIG: Record<number, { url: string; braipUrl: string; price: string; installment: string; oldPrice: string; discount: string }> = {
   1: { 
     url: "https://entrega.logzz.com.br/pay/mem6702nw/1-kit-com-6-facas-oferta", 
     braipUrl: "https://pay.braip.co/checkout/plao46o6/che5wqov?pl=plao46o6&ck=che5wqov&af=afig51gd81&currency=BRL",
     price: "119,90", 
-    installment: "12,80" 
+    installment: "12,80",
+    oldPrice: "199,90",
+    discount: "40% OFF"
   },
   2: { 
     url: "https://entrega.logzz.com.br/pay/mem6702nw/2-kits-de-facas-promocao", 
     braipUrl: "https://ev.braip.com/checkout/pla1lrqn/che5wqov?pl=pla1lrqn&ck=che5wqov&af=afig51gd81&currency=BRL",
     price: "174,99", 
-    installment: "18,67" 
+    installment: "18,67",
+    oldPrice: "299,90",
+    discount: "42% OFF"
   },
   3: { 
     url: "https://entrega.logzz.com.br/pay/mem6702nw/3-kits-de-facas-promocao", 
     braipUrl: "https://ev.braip.com/checkout/pladdovq/che5wqov?pl=pladdovq&ck=che5wqov&af=afig51gd81&currency=BRL",
     price: "249,99", 
-    installment: "26,68" 
+    installment: "26,68",
+    oldPrice: "449,90",
+    discount: "44% OFF"
   },
   4: { 
     url: "https://entrega.logzz.com.br/pay/mem6702nw/4-kits-de-facas-profissional-super-oferta", 
     braipUrl: "https://ev.braip.com/checkout/plae6g16/che5wqov?pl=plae6g16&ck=che5wqov&af=afig51gd81&currency=BRL",
     price: "389,90", 
-    installment: "41,61" 
+    installment: "41,61",
+    oldPrice: "699,90",
+    discount: "44% OFF"
   },
   5: { 
     url: "https://entrega.logzz.com.br/pay/mem6702nw/5-kits-de-facas-profissional-oferta-especial", 
     braipUrl: "https://ev.braip.com/checkout/plaq40ol/che5wqov?pl=plaq40ol&ck=che5wqov&af=afig51gd81&currency=BRL",
     price: "429,90", 
-    installment: "45,88" 
+    installment: "45,88",
+    oldPrice: "799,90",
+    discount: "46% OFF"
   }
 };
 
@@ -225,11 +235,11 @@ const PurchasePage: React.FC = () => {
                       : 'border border-white/10 bg-white/5 shadow-xl'
                   }`}>
                     
-                    {/* Badge "Melhor Oferta" flutuante */}
+                    {/* Badge "Mais Vendido" flutuante */}
                     {isBestSeller && (
                       <div className="absolute -top-4 left-6 z-20">
                         <div className="bg-green-600 text-white font-black text-[10px] px-3 py-1 rounded-full shadow-lg shadow-green-900/40 uppercase tracking-widest animate-bounce">
-                           MELHOR CUSTO-BENEFÍCIO
+                           MAIS VENDIDO
                         </div>
                       </div>
                     )}
@@ -250,11 +260,11 @@ const PurchasePage: React.FC = () => {
                       </div>
                     </div>
                     
-                    {/* Price Section */}
+                    {/* Price Section Dinâmica */}
                     <div className="flex flex-col border-b border-white/10 pb-6">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-gray-500 text-lg line-through font-medium">R$ 299,00</span>
-                        <div className="bg-green-500/20 text-green-500 text-[10px] font-black px-1.5 py-0.5 rounded uppercase">60% OFF</div>
+                        <span className="text-gray-500 text-lg line-through font-medium">R$ {currentProduct.oldPrice}</span>
+                        <div className="bg-green-500/20 text-green-500 text-[10px] font-black px-1.5 py-0.5 rounded uppercase">{currentProduct.discount}</div>
                       </div>
                       <div className="flex flex-col">
                         <span className="text-white text-5xl font-black tracking-tighter">R$ {currentProduct.price}</span>
@@ -353,7 +363,6 @@ const PurchasePage: React.FC = () => {
                   </div>
 
                   {/* Vídeos de Prova Social com correção de scroll */}
-                  {/* Fixed WebkitOverflowScrolling to satisfy TypeScript/React standards */}
                   <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar snap-x px-2 touch-pan-x" style={{ WebkitOverflowScrolling: 'touch' }}>
                     {videoTestimonials.map((video) => (
                       <div key={video.id} className="snap-center shrink-0 w-[240px] md:w-[280px] aspect-[9/16] rounded-3xl overflow-hidden relative group border border-white/10 bg-black shadow-2xl">
