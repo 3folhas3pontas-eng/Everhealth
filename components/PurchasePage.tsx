@@ -304,31 +304,31 @@ const PurchasePage: React.FC = () => {
                   </div>
                   
                   {/* Quantity */}
-                  <div className="flex items-center gap-4 bg-transparent min-h-14 justify-between">
+                  <div className="flex items-center gap-4 bg-black/5 dark:bg-white/5 rounded-2xl p-4 min-h-16 justify-between border border-black/10 dark:border-white/10">
                     <div className="flex items-center gap-4">
-                      <div className={`flex items-center justify-center rounded-lg shrink-0 size-10 transition-colors ${isBestSeller ? 'bg-green-500/20 text-green-400' : 'bg-black/5 dark:bg-white/5 text-gray-700 dark:text-white'}`}>
+                      <div className={`flex items-center justify-center rounded-lg shrink-0 size-10 transition-colors ${isBestSeller ? 'bg-green-500/20 text-green-400' : 'bg-black/10 dark:bg-white/10 text-gray-700 dark:text-white'}`}>
                         <span className="material-symbols-outlined">package_2</span>
                       </div>
-                      <p className={`text-base font-medium leading-normal flex-1 truncate ${isBestSeller ? 'text-green-400 font-bold' : 'text-gray-800 dark:text-white'}`}>
+                      <p className={`text-base font-bold leading-normal flex-1 truncate ${isBestSeller ? 'text-green-400' : 'text-gray-800 dark:text-white'}`}>
                         {quantity === 1 ? '1 Kit (6 Peças)' : `${quantity} Kits (${quantity * 6} Peças)`}
                       </p>
                     </div>
                     <div className="shrink-0">
-                      <div className="flex items-center gap-2 text-gray-800 dark:text-white">
-                        <button onClick={decrement} className="text-base font-medium leading-normal flex h-8 w-8 items-center justify-center rounded-full bg-black/10 dark:bg-white/10 cursor-pointer hover:bg-black/20 dark:hover:bg-white/20 transition-colors">-</button>
+                      <div className="flex items-center gap-3 text-gray-800 dark:text-white bg-black/10 dark:bg-white/10 p-1 rounded-full">
+                        <button onClick={decrement} className="text-base font-black flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-background-dark shadow-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 transition-all">-</button>
                         <input 
-                          className="text-base font-medium leading-normal w-8 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" 
+                          className="text-lg font-black w-8 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" 
                           type="number" 
                           value={quantity}
                           readOnly
                         />
-                        <button onClick={increment} className="text-base font-medium leading-normal flex h-8 w-8 items-center justify-center rounded-full bg-black/10 dark:bg-white/10 cursor-pointer hover:bg-black/20 dark:hover:bg-white/20 transition-colors">+</button>
+                        <button onClick={increment} className="text-base font-black flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-background-dark shadow-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 transition-all">+</button>
                       </div>
                     </div>
                   </div>
                   
                   {/* CTA Buttons */}
-                  <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-4">
                     
                     {/* Frete Grátis Badge */}
                     <div className="flex items-center gap-2 pb-1">
@@ -341,24 +341,26 @@ const PurchasePage: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col gap-3">
                       <button 
                         onClick={handleBuyClick}
-                        className={`flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 text-white text-base font-bold leading-normal tracking-[0.015em] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 bg-[#25D366] hover:bg-[#20b858] shadow-[#25D366]/20`}
+                        className={`w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-16 md:h-14 px-5 text-white text-xl md:text-lg font-black leading-normal tracking-[0.02em] uppercase transition-all shadow-[0_10px_25px_-5px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_30px_-5px_rgba(37,211,102,0.6)] hover:-translate-y-1 bg-[#25D366] hover:bg-[#20b858] active:scale-95`}
                       >
                         <span className="truncate">
                           {isBraipActive ? "Comprar (Entrega Ativada)" : "Comprar Agora"}
                         </span>
                       </button>
                       
-                      <a 
-                        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${MSG_SUPPORT_GENERAL}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-black/10 dark:bg-white/10 text-gray-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-black/20 dark:hover:bg-white/20 transition-colors"
-                      >
-                        <span className="truncate">Suporte</span>
-                      </a>
+                      <div className="flex gap-3">
+                        <a 
+                          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${MSG_SUPPORT_GENERAL}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 md:h-12 px-5 bg-black/10 dark:bg-white/10 text-gray-800 dark:text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-black/20 dark:hover:bg-white/20 transition-colors border border-black/5 dark:border-white/5"
+                        >
+                          <span className="truncate">Suporte</span>
+                        </a>
+                      </div>
                     </div>
                     
                     {/* Botão de Ajuda / Problemas */}
@@ -372,7 +374,7 @@ const PurchasePage: React.FC = () => {
                   </div>
 
                   {/* Security Badges */}
-                  <div className="flex items-center gap-4 p-4 rounded-lg bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
                     <span className="material-symbols-outlined text-primary text-3xl">verified_user</span>
                     <div className="flex flex-col">
                       <p className="text-gray-800 dark:text-white font-bold">Compra 100% Segura</p>
