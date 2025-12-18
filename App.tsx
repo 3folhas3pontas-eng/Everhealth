@@ -1,5 +1,4 @@
 import React from 'react';
-import { Analytics } from '@vercel/analytics/react';
 import { RouterProvider, useRouter } from './components/RouterContext';
 import LandingPage from './components/LandingPage';
 import PurchasePage from './components/PurchasePage';
@@ -22,7 +21,6 @@ const App: React.FC = () => {
     <SystemMonitor>
       <RouterProvider>
         <Content />
-        <Analytics />
       </RouterProvider>
     </SystemMonitor>
   );
