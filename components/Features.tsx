@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface FeatureItemProps {
@@ -24,23 +25,23 @@ const Features: React.FC = () => {
   const featureList = [
     {
       icon: "science",
-      title: "Aço de Carbono + Antiaderente",
-      description: "Durabilidade superior, resistência a manchas e um revestimento que garante cortes limpos e fáceis."
+      title: "Lâmina Blindada que Não Gruda",
+      description: "Nada pior que a carne grudando na faca. Nosso revestimento garante que cada fatia deslize suavemente, sem esforço."
     },
     {
       icon: "diamond",
-      title: "Afiação de Precisão Profissional",
-      description: "Cada lâmina possui um fio de navalha com retenção superior para uma experiência de corte profissional."
+      title: "Fio de Navalha de Longa Duração",
+      description: "Chega de amolar a faca a cada churrasco. O tratamento térmico do aço mantém o corte cirúrgico por muito mais tempo."
     },
     {
       icon: "front_hand",
-      title: "Cabos Ergonômicos Antiderrapantes",
-      description: "Conforto, controlo e segurança excecionais, mesmo com as mãos molhadas, graças ao design ergonómico."
+      title: "Pegada Firme e Segura (Mesmo Molhada)",
+      description: "Tenha controle total. O cabo anatômico não escorrega, evitando acidentes e garantindo firmeza até nos cortes mais pesados."
     },
     {
       icon: "restaurant_menu",
-      title: "Combinação Completa",
-      description: "Kit inclui faca do Chef, cutelo, faca de pão, faca de fruta, tesoura e descascador."
+      title: "Arsenal Completo para Sua Cozinha",
+      description: "Você não compra apenas uma faca, mas um kit profissional com cutelo, faca de pão, frutas, tesoura e descascador para qualquer desafio."
     }
   ];
 
@@ -49,7 +50,7 @@ const Features: React.FC = () => {
       <div className="flex flex-col gap-6 text-center items-center">
         <div className="flex flex-col gap-4">
           <h1 className="text-slate-900 dark:text-white tracking-tight text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl max-w-3xl">
-            Porque as Nossas Facas São Diferentes
+            O Segredo do Corte Perfeito em Cada Detalhe
           </h1>
           <p className="text-slate-600 dark:text-slate-400 text-lg font-normal leading-normal max-w-3xl">
             Descubra a combinação de design moderno, materiais de alta qualidade e engenharia de precisão que torna o nosso kit de facas essencial para qualquer cozinha.

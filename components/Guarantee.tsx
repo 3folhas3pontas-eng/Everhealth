@@ -58,7 +58,7 @@ const Guarantee: React.FC = () => {
             onClick={() => navigate('/comprar')}
             className="bg-[#25D366] hover:bg-[#20b858] text-white font-bold text-lg py-4 px-12 rounded-xl shadow-[0_8px_30px_rgba(37,211,102,0.4)] transition-all duration-300 transform hover:scale-105 hover:shadow-[0_8px_40px_rgba(37,211,102,0.6)]"
           >
-            Comprar Agora
+            Quero Pagar na Entrega
           </button>
           <p className="text-sm text-slate-500 dark:text-gray-400 mt-6 flex items-center justify-center gap-2">
             <span className="material-symbols-outlined text-base">lock</span>

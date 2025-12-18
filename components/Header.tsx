@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenDetails }) => {
         onClick={() => navigate('/comprar')}
         className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#25D366] hover:bg-[#20b858] transition-all duration-300 text-white text-sm font-bold leading-normal tracking-[0.015em] shadow-lg shadow-[#25D366]/20 hover:shadow-[#25D366]/40 hover:-translate-y-0.5"
       >
-        <span className="truncate">Comprar Agora</span>
+        <span className="truncate uppercase tracking-tighter">Quero Pagar na Entrega</span>
       </button>
     </header>
   );

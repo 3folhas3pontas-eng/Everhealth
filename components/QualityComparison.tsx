@@ -63,7 +63,7 @@ const QualityComparison: React.FC = () => {
             onClick={() => navigate('/comprar')}
             className="flex min-w-[84px] max-w-[480px] w-full sm:w-auto cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-[#25D366] text-white text-base font-bold leading-normal tracking-wide hover:bg-[#20b858] transition-all duration-300 shadow-[0_8px_20px_-6px_rgba(37,211,102,0.5)]"
           >
-            <span className="truncate">Descubra a Coleção Imperial</span>
+            <span className="truncate uppercase">Quero Pagar na Entrega</span>
           </button>
         </div>
       </div>

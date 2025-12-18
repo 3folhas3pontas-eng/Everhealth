@@ -21,14 +21,14 @@ const Hero: React.FC = () => {
               Everhealth™
             </h1>
             <h2 className="text-white text-sm font-normal leading-normal @[480px]:text-base font-display max-w-lg">
-              Precisão Cirúrgica. Design Atemporal. Eleve sua experiência culinária.
+              Facas Ultra Afiadas para Quem Não Aguenta Mais Sofrer na Cozinha
             </h2>
           </div>
           <button 
             onClick={() => navigate('/comprar')}
             className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#25D366] hover:bg-[#20b858] transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base shadow-lg hover:shadow-[#25D366]/50"
           >
-            <span className="truncate">Comprar Agora</span>
+            <span className="truncate uppercase">Quero Pagar na Entrega</span>
           </button>
         </div>
       </div>

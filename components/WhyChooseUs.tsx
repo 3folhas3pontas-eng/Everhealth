@@ -138,7 +138,7 @@ const WhyChooseUs: React.FC = () => {
             onClick={() => navigate('/comprar')}
             className="flex min-w-[240px] items-center justify-center rounded-lg h-14 px-8 bg-[#25D366] text-white text-lg font-bold tracking-wide hover:bg-[#20b858] transition-all shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:scale-105"
           >
-            QUERO O MEU AGORA
+            QUERO PAGAR NA ENTREGA
           </button>
         </div>
 
