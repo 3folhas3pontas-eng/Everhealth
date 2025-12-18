@@ -113,7 +113,15 @@ const PurchasePage: React.FC = () => {
   }, [isHovering, images.length]);
 
   return (
-    <div className="bg-background-light dark:bg-[#0b0813] font-display antialiased min-h-screen">
+    <div className="bg-background-light dark:bg-[#0b0813] font-display antialiased min-h-screen text-slate-900 dark:text-white">
+      {/* Top Banner Estratégico */}
+      <div className="sticky top-0 z-[100] w-full bg-yellow-400 py-2.5 px-4 shadow-xl overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-45 -translate-x-full animate-[shimmer_2.5s_infinite]"></div>
+        <p className="text-black text-center font-black text-xs md:text-sm uppercase tracking-tighter flex items-center justify-center gap-2">
+          🔥 <span className="underline decoration-black decoration-2 underline-offset-2">QUEIMA TOTAL SÓ HOJE</span> — LIQUIDAÇÃO DE ESTOQUE ATÉ MEIA-NOITE!
+        </p>
+      </div>
+
       {/* Lightbox para ampliar imagem */}
       {selectedImage && (
         <div 
@@ -259,9 +267,21 @@ const PurchasePage: React.FC = () => {
                         <span className="text-xs text-gray-400 font-bold">(154 avaliações)</span>
                       </div>
                     </div>
+
+                    {/* BARRA DE URGÊNCIA - Otimizada para Mobile e visibilidade máxima */}
+                    <div className="flex justify-center w-full">
+                      <div className="w-full bg-[#b22222] text-white rounded-lg py-4 px-4 text-center font-black text-sm md:text-lg tracking-wide animate-soft-pulse shadow-2xl border border-white/20">
+                        ⚠️ RESTAM APENAS 4 UNIDADES NO CENTRO DE DISTRIBUIÇÃO
+                      </div>
+                    </div>
                     
                     {/* Price Section Dinâmica */}
-                    <div className="flex flex-col border-b border-white/10 pb-6">
+                    <div className="flex flex-col border-b border-white/10 pb-6 relative">
+                      {/* Selo Estratégico "Queima Total" */}
+                      <div className="absolute top-0 right-0 bg-yellow-400 text-black px-2 py-0.5 rounded-full font-black text-[9px] uppercase animate-pulse shadow-lg rotate-3">
+                         🔥 Queima Total Só Hoje
+                      </div>
+                      
                       <div className="flex items-baseline gap-2">
                         <span className="text-gray-500 text-lg line-through font-medium">R$ {currentProduct.oldPrice}</span>
                         <div className="bg-green-500/20 text-green-500 text-[10px] font-black px-1.5 py-0.5 rounded uppercase">{currentProduct.discount}</div>

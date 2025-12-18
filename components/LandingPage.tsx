@@ -31,6 +31,14 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden bg-background-light dark:bg-background-dark">
+      {/* Top Banner Estratégico */}
+      <div className="sticky top-0 z-[100] w-full bg-yellow-400 py-2 px-4 shadow-xl overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-45 -translate-x-full animate-[shimmer_2.5s_infinite]"></div>
+        <p className="text-black text-center font-black text-[10px] md:text-sm uppercase tracking-tighter flex items-center justify-center gap-2">
+          🔥 <span className="underline decoration-black decoration-1 underline-offset-2">QUEIMA TOTAL SÓ HOJE</span> — LIQUIDAÇÃO DE ESTOQUE ATÉ MEIA-NOITE!
+        </p>
+      </div>
+
       <DetailsModal 
         isOpen={modalOpen} 
         onClose={() => setModalOpen(false)} 
@@ -59,6 +67,12 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-150%) skewX(-45deg); }
+          100% { transform: translateX(250%) skewX(-45deg); }
+        }
+      `}</style>
     </div>
   );
 };
