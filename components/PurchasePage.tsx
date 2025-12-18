@@ -329,10 +329,13 @@ const PurchasePage: React.FC = () => {
                           <span>O que vem na caixa</span>
                           <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
                         </summary>
-                        <ul className="text-gray-400 text-sm mt-4 grid grid-cols-1 gap-2">
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca Cutelo</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca do Chef (8")</li>
-                          <li className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Descascador de Legumes</li>
+                        <ul className="text-gray-400 text-base mt-4 grid grid-cols-1 gap-3">
+                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca do Chef</li>
+                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Cutelo</li>
+                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca de Pão</li>
+                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca de Fruta</li>
+                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Descascador</li>
+                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Tesoura de Cozinha</li>
                         </ul>
                       </details>
                     </div>
@@ -350,7 +353,7 @@ const PurchasePage: React.FC = () => {
                   </div>
 
                   {/* Vídeos de Prova Social com correção de scroll */}
-                  {/* Fixed webkitOverflowScrolling to WebkitOverflowScrolling to satisfy TypeScript/React standards */}
+                  {/* Fixed WebkitOverflowScrolling to satisfy TypeScript/React standards */}
                   <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar snap-x px-2 touch-pan-x" style={{ WebkitOverflowScrolling: 'touch' }}>
                     {videoTestimonials.map((video) => (
                       <div key={video.id} className="snap-center shrink-0 w-[240px] md:w-[280px] aspect-[9/16] rounded-3xl overflow-hidden relative group border border-white/10 bg-black shadow-2xl">
