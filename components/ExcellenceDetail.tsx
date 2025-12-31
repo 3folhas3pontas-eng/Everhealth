@@ -12,7 +12,7 @@ const ExcellenceDetail: React.FC = () => {
               A Excelência em Cada Detalhe
             </h1>
             <p className="mt-4 text-slate-600 dark:text-white/90 text-lg leading-relaxed">
-              Descubra a combinação perfeita de arte e engenharia, onde cada corte é uma prova de qualidade superior.
+              Descubra a combinação perfeita de arte e engenharia, onde cada corte é uma prova de qualidade superior e higiene profissional.
             </p>
           </div>
           
@@ -25,7 +25,7 @@ const ExcellenceDetail: React.FC = () => {
                 <div>
                   <h3 className="text-primary text-xl font-bold">Fio Incomparável</h3>
                   <p className="text-slate-600 dark:text-white/80 mt-2 text-base leading-relaxed">
-                    Uma lâmina afiada com precisão para cortes perfeitos e sem esforço, mantendo a integridade de cada ingrediente.
+                    Uma lâmina afiada com precisão laser para cortes perfeitos e sem esforço, mantendo a integridade de cada ingrediente.
                   </p>
                 </div>
               </div>
@@ -36,7 +36,7 @@ const ExcellenceDetail: React.FC = () => {
                 <div>
                   <h3 className="text-primary text-xl font-bold">Equilíbrio Perfeito</h3>
                   <p className="text-slate-600 dark:text-white/80 mt-2 text-base leading-relaxed">
-                    Design ergonômico que garante controle e conforto absoluto, tornando-se uma extensão natural da sua mão.
+                    Design ergonômico que garante controle e conforto absoluto, tornando-se uma extensão natural da sua mão durante o preparo.
                   </p>
                 </div>
               </div>
@@ -45,9 +45,9 @@ const ExcellenceDetail: React.FC = () => {
               <div className="flex items-start gap-5 group">
                 <span className="material-symbols-outlined text-4xl text-primary shrink-0 transition-transform duration-300 group-hover:scale-110">layers</span>
                 <div>
-                  <h3 className="text-primary text-xl font-bold">Materiais Premium</h3>
+                  <h3 className="text-primary text-xl font-bold">Materiais de Alta Performance</h3>
                   <p className="text-slate-600 dark:text-white/80 mt-2 text-base leading-relaxed">
-                    Forjada com Aço de Carbono e madeiras nobres para um desempenho superior e beleza atemporal.
+                    Forjada com Aço Carbono de alta qualidade e cabos em Polipropileno de Alta Densidade para durabilidade extrema e máxima higiene.
                   </p>
                 </div>
               </div>
@@ -56,16 +56,15 @@ const ExcellenceDetail: React.FC = () => {
               <div className="flex items-start gap-5 group">
                 <span className="material-symbols-outlined text-4xl text-primary shrink-0 transition-transform duration-300 group-hover:scale-110">shield</span>
                 <div>
-                  <h3 className="text-primary text-xl font-bold">Durabilidade Superior</h3>
+                  <h3 className="text-primary text-xl font-bold">Padrão Sanitário Profissional</h3>
                   <p className="text-slate-600 dark:text-white/80 mt-2 text-base leading-relaxed">
-                    Artesanato que garante longa durabilidade e beleza, um legado para sua cozinha.
+                    Cabos que não absorvem umidade e impedem a proliferação de bactérias, seguindo os mais rigorosos padrões das cozinhas profissionais.
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Coluna da Imagem */}
-            {/* Sticky apenas em telas médias ou maiores (md:sticky) para evitar quebra de layout no mobile */}
             <div className="order-1 md:order-2 md:sticky md:top-32 flex items-center justify-center mb-8 md:mb-0">
               <div className="w-full relative flex items-center justify-center h-[300px] md:h-[50vh]">
                 <img 

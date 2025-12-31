@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from './RouterContext';
 
-// Configuração dos Kits (Preços e Links)
 const PRODUCT_CONFIG: Record<number, { url: string; braipUrl: string; price: string; installment: string; oldPrice: string; discount: string }> = {
   1: { 
     url: "https://entrega.logzz.com.br/pay/mem6702nw/1-kit-com-6-facas-oferta", 
@@ -49,22 +48,18 @@ const PRODUCT_CONFIG: Record<number, { url: string; braipUrl: string; price: str
 const PurchasePage: React.FC = () => {
   const { navigate } = useRouter();
   const [quantity, setQuantity] = useState(1);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(true);
-  
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+  const [isCarrierEnabled, setIsCarrierEnabled] = useState(false);
+
   const WHATSAPP_NUMBER = "5511976285899"; 
-  const MSG_SUPPORT_ISSUE = encodeURIComponent("Olá! Estou tendo dificuldades para finalizar minha compra do Kit Everhealth™ e preciso de ajuda.");
   const MSG_SUPPORT_GENERAL = encodeURIComponent("Olá! Gostaria de tirar dúvidas sobre o Kit de Facas Everhealth™.");
 
-  const [isBraipActive, setIsBraipActive] = useState(false); 
-  const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  // Vídeos de Prova Social
   const videoTestimonials = [
-    { id: 1, url: "https://files.catbox.moe/qeo0xh.mp4", poster: "https://i.imgur.com/zDFKzcm.jpeg", label: "Unboxing" },
-    { id: 2, url: "https://files.catbox.moe/i81amu.mp4", poster: "https://i.imgur.com/L9hTrly.png", label: "Corte Preciso" },
-    { id: 3, url: "https://files.catbox.moe/kc2m6o.mp4", poster: "https://i.imgur.com/I9LKAhg.png", label: "Detalhes" },
-    { id: 4, url: "https://files.catbox.moe/n3pr82.mp4", poster: "https://i.imgur.com/hLNs0WB.png", label: "Uso Real" }
+    { id: 1, url: "https://files.catbox.moe/qeo0xh.mp4", poster: "https://i.imgur.com/zDFKzcm.jpeg", label: "O kit é bruto!" },
+    { id: 2, url: "https://files.catbox.moe/i81amu.mp4", poster: "https://i.imgur.com/L9hTrly.png", label: "Corta muito pelo preço." },
+    { id: 3, url: "https://files.catbox.moe/kc2m6o.mp4", poster: "https://i.imgur.com/I9LKAhg.png", label: "Pegada firme!" },
+    { id: 4, url: "https://files.catbox.moe/n3pr82.mp4", poster: "https://i.imgur.com/hLNs0WB.png", label: "Chegou rápido." }
   ];
 
   const customerImages = [
@@ -85,7 +80,6 @@ const PurchasePage: React.FC = () => {
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
 
   const currentProduct = PRODUCT_CONFIG[quantity];
   const isBestSeller = quantity === 2;
@@ -93,385 +87,335 @@ const PurchasePage: React.FC = () => {
   const increment = () => setQuantity(q => Math.min(q + 1, 5));
   const decrement = () => setQuantity(q => Math.max(q - 1, 1));
 
+  const nextImage = () => setActiveIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+
   const handleBuyClick = () => {
-    const targetUrl = isBraipActive ? currentProduct.braipUrl : currentProduct.url;
-    window.open(targetUrl, '_blank');
+    const checkoutUrl = isCarrierEnabled ? currentProduct.braipUrl : currentProduct.url;
+    window.open(checkoutUrl, '_blank');
   };
 
-  const activateAlternativeDelivery = () => {
-    setIsBraipActive(true);
-    alert("Método de entrega via Transportadora ativado com sucesso!");
-    setIsHelpModalOpen(false); 
+  const toggleCarrierDelivery = () => {
+    const newValue = !isCarrierEnabled;
+    setIsCarrierEnabled(newValue);
+    
+    if (newValue) {
+      setTimeout(() => {
+        setIsHelpModalOpen(false);
+        const buyButton = document.getElementById('main-buy-button');
+        if (buyButton) {
+          buyButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
+    }
   };
 
   useEffect(() => {
-    if (isHovering) return; 
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
-    }, 3500); 
+    const interval = setInterval(nextImage, 4500); 
     return () => clearInterval(interval);
-  }, [isHovering, images.length]);
+  }, [images.length]);
 
   return (
-    <div className="bg-background-light dark:bg-[#0b0813] font-display antialiased min-h-screen text-slate-900 dark:text-white">
-      {/* Top Banner Estratégico */}
-      <div className="sticky top-0 z-[100] w-full bg-yellow-400 py-2.5 px-4 shadow-xl overflow-hidden">
+    <div className="bg-background-light dark:bg-[#0b0813] font-display antialiased min-h-screen text-slate-900 dark:text-white pb-10">
+      <div className="sticky top-0 z-[100] w-full bg-yellow-400 py-2.5 px-4 shadow-xl overflow-hidden text-center">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-45 -translate-x-full animate-[shimmer_2.5s_infinite]"></div>
-        <p className="text-black text-center font-black text-xs md:text-sm uppercase tracking-tighter flex items-center justify-center gap-2">
-          🔥 <span className="underline decoration-black decoration-2 underline-offset-2">QUEIMA TOTAL SÓ HOJE</span> — LIQUIDAÇÃO DE ESTOQUE ATÉ MEIA-NOITE!
+        <p className="text-black inline-block font-black text-[10px] md:text-sm uppercase tracking-tighter">
+          🔥 QUEIMA TOTAL SÓ HOJE — ÚLTIMAS UNIDADES NO ESTOQUE!
         </p>
       </div>
 
-      {/* Lightbox para ampliar imagem */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in"
-          onClick={() => setSelectedImage(null)}
-        >
-          <img src={selectedImage} alt="Zoom cliente" className="max-w-full max-h-[90vh] rounded-lg shadow-2xl" />
-          <button className="absolute top-4 right-4 text-white p-2 bg-white/10 rounded-full hover:bg-white/20">
-            <span className="material-symbols-outlined text-2xl">close</span>
-          </button>
-        </div>
-      )}
-
-      {/* MODAL DE AJUDA */}
       {isHelpModalOpen && (
-        <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white dark:bg-[#1f1b28] w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-white/10 flex flex-col max-h-[90vh]">
-            <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-black/20">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <span className="material-symbols-outlined text-yellow-500">help</span>
-                Precisa de Ajuda?
-              </h3>
-              <button onClick={() => setIsHelpModalOpen(false)} className="text-gray-500 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-black/5">
+        <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="relative w-full max-w-[400px] bg-[#1a1625] rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+            <div className="p-6 border-b border-white/5 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-yellow-400 text-3xl">help</span>
+                <h3 className="text-white text-xl font-black">Precisa de Ajuda?</h3>
+              </div>
+              <button onClick={() => setIsHelpModalOpen(false)} className="text-white/40 hover:text-white transition-colors">
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
-            <div className="overflow-y-auto p-6 flex flex-col gap-6">
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${MSG_SUPPORT_ISSUE}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-4 rounded-xl transition-all shadow-lg hover:shadow-green-900/30 hover:-translate-y-0.5">
+            
+            <div className="p-6 flex flex-col gap-6">
+              <a 
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${MSG_SUPPORT_GENERAL}`}
+                target="_blank"
+                className="flex items-center justify-center gap-3 w-full py-4 bg-[#25D366] text-white rounded-2xl font-black text-lg shadow-lg shadow-[#25D366]/20 transition-transform active:scale-95"
+              >
                 <span className="material-symbols-outlined">chat</span>
                 Falar no WhatsApp
               </a>
-              <div className="bg-slate-50 dark:bg-white/5 rounded-2xl p-5 border border-slate-100 dark:border-white/5 shadow-inner">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 shrink-0">
-                    <span className="material-symbols-outlined">location_off</span>
+
+              <div className="bg-[#241d2f] rounded-3xl p-6 border border-white/5 flex flex-col gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="size-12 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-red-500">location_off</span>
                   </div>
-                  <h4 className="font-bold text-slate-800 dark:text-white text-base leading-tight">CEP indisponível?</h4>
+                  <h4 className="text-white font-black text-lg">CEP indisponível?</h4>
                 </div>
-                <p className="text-sm text-slate-600 dark:text-gray-300 mb-5 leading-relaxed">Ative nossa Entrega via Transportadora para liberar o envio imediato.</p>
-                <button onClick={activateAlternativeDelivery} className="w-full py-3 px-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 text-sm hover:-translate-y-0.5">
-                  <span className="material-symbols-outlined text-lg">local_shipping</span>
-                  Ativar Entrega via Transportadora
-                </button>
+                <p className="text-white/60 text-sm leading-relaxed font-medium">
+                  Ative nossa Entrega via Transportadora para liberar o envio imediato.
+                </p>
+                <div className="flex flex-col items-center gap-2">
+                  <button 
+                    onClick={toggleCarrierDelivery}
+                    className={`w-full py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-3 shadow-lg transition-all active:scale-95 ${
+                      isCarrierEnabled 
+                      ? 'bg-green-500/20 text-green-500 border border-green-500/30' 
+                      : 'bg-white text-black hover:bg-gray-100'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined">{isCarrierEnabled ? 'check_circle' : 'local_shipping'}</span>
+                    {isCarrierEnabled ? 'Transportadora Ativada' : 'Ativar Entrega via Transportadora'}
+                  </button>
+                  {isCarrierEnabled && (
+                    <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest animate-pulse">
+                      Clique no botão acima para desativar
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* CONTEÚDO PRINCIPAL */}
-      <div className="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+      {selectedImage && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in" onClick={() => setSelectedImage(null)}>
+          <img src={selectedImage} alt="Foto real ampliada do Kit Everhealth Profissional" className="max-w-full max-h-[90vh] rounded-lg shadow-2xl" />
+          <button className="absolute top-4 right-4 text-white p-2 bg-white/10 rounded-full"><span className="material-symbols-outlined text-2xl">close</span></button>
+        </div>
+      )}
+
+      <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
         <div className="layout-container flex h-full grow flex-col">
-          {/* Header Mobile Otimizado */}
           <div className="w-full flex justify-start px-4 pt-6 md:px-8 z-20">
-            <button 
-              onClick={() => navigate('/')} 
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold text-xs uppercase tracking-widest hover:bg-white/20 transition-all"
-            >
-              <span className="material-symbols-outlined text-[18px]">arrow_back</span>
-              Voltar
+            <button onClick={() => navigate('/')} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-white font-bold text-xs uppercase tracking-widest hover:bg-white/20">
+              <span className="material-symbols-outlined text-[18px]">arrow_back</span>Voltar
             </button>
           </div>
 
           <main className="flex-1">
             <div className="w-full mx-auto max-w-6xl px-4 py-6 md:py-12">
-              {/* Grid principal de compra: Galeria e Box de Compra */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-12 lg:mb-20">
-                
-                {/* --- Coluna: Galeria Principal --- */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-12">
                 <div className="flex flex-col gap-6">
-                  <div 
-                    className="flex flex-col gap-6"
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                  >
-                    <div className="relative w-full aspect-square bg-white/5 rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-                      <div 
-                        key={activeIndex} 
-                        className="w-full h-full bg-center bg-cover bg-no-repeat animate-fade-in" 
-                        style={{ backgroundImage: `url("${images[activeIndex]}")` }}
-                      ></div>
-                      
-                      <button onClick={() => setActiveIndex((prev) => (prev - 1 + images.length) % images.length)} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <span className="material-symbols-outlined text-2xl">chevron_left</span>
-                      </button>
-                      <button onClick={() => setActiveIndex((prev) => (prev + 1) % images.length)} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <span className="material-symbols-outlined text-2xl">chevron_right</span>
-                      </button>
-                    </div>
+                  <div className="relative w-full aspect-square bg-white/5 rounded-3xl overflow-hidden shadow-2xl border border-white/10 group mx-auto max-w-[500px]">
+                    <div key={activeIndex} className="w-full h-full bg-center bg-cover animate-fade-in" style={{ backgroundImage: `url("${images[activeIndex]}")` }}></div>
+                    
+                    <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 size-10 md:size-12 flex items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm border border-white/10 hover:bg-black/60 transition-all active:scale-90 z-20 md:opacity-0 group-hover:opacity-100">
+                      <span className="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 size-10 md:size-12 flex items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm border border-white/10 hover:bg-black/60 transition-all active:scale-90 z-20 md:opacity-0 group-hover:opacity-100">
+                      <span className="material-symbols-outlined">chevron_right</span>
+                    </button>
+                  </div>
 
-                    {/* Miniaturas Restauradas */}
+                  <div className="w-full flex flex-col gap-4 max-w-[500px] mx-auto">
                     <div className="w-full overflow-x-auto hide-scrollbar pb-2">
-                      <div className="flex gap-3 min-w-min px-1">
+                      <div className="flex gap-3 px-1">
                         {images.map((img, index) => (
-                          <button 
-                            key={index}
-                            onClick={() => setActiveIndex(index)}
-                            className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 ease-out 
-                              ${activeIndex === index 
-                                ? 'ring-2 ring-primary ring-offset-2 ring-offset-[#0b0813] scale-105 opacity-100 shadow-lg' 
-                                : 'opacity-60 hover:opacity-100 hover:scale-105'}`}
-                          >
-                            <div 
-                              className="w-full h-full bg-center bg-cover"
-                              style={{ backgroundImage: `url("${img}")` }}
-                            ></div>
+                          <button key={index} onClick={() => setActiveIndex(index)} className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden transition-all ${activeIndex === index ? 'ring-2 ring-primary scale-105' : 'opacity-60'}`}>
+                            <div className="w-full h-full bg-center bg-cover" style={{ backgroundImage: `url("${img}")` }}></div>
                           </button>
                         ))}
                       </div>
                     </div>
+                    
+                    <div className="flex items-center justify-center gap-6">
+                      <button onClick={prevImage} className="flex items-center gap-2 text-white/60 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-colors">
+                        <span className="material-symbols-outlined text-sm">west</span> Anterior
+                      </button>
+                      <div className="flex gap-1.5">
+                        {images.map((_, idx) => (
+                          <div key={idx} className={`h-1.5 rounded-full transition-all ${activeIndex === idx ? 'w-6 bg-primary' : 'w-1.5 bg-white/20'}`}></div>
+                        ))}
+                      </div>
+                      <button onClick={nextImage} className="flex items-center gap-2 text-white/60 hover:text-white font-bold text-[10px] md:text-xs uppercase tracking-widest transition-colors">
+                        Próximo <span className="material-symbols-outlined text-sm">east</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                {/* --- Coluna: Detalhes da Compra --- */}
-                <div className="flex flex-col gap-6">
-                  <div className={`flex flex-col gap-6 relative transition-all duration-500 ease-out rounded-[2rem] p-6 md:p-8 ${
-                    isBestSeller 
-                      ? 'border-2 border-green-500/50 bg-green-500/5 shadow-[0_20px_50px_-10px_rgba(34,197,94,0.2)]' 
-                      : 'border border-white/10 bg-white/5 shadow-xl'
-                  }`}>
-                    
-                    {/* Badge "Mais Vendido" flutuante */}
-                    {isBestSeller && (
-                      <div className="absolute -top-4 left-6 z-20">
-                        <div className="bg-green-600 text-white font-black text-[10px] px-3 py-1 rounded-full shadow-lg shadow-green-900/40 uppercase tracking-widest animate-bounce">
-                           MAIS VENDIDO
-                        </div>
-                      </div>
-                    )}
+                <div className="flex flex-col gap-6 w-full max-w-[500px] mx-auto lg:max-w-none">
+                  <div className={`relative transition-all rounded-[2rem] p-5 md:p-8 ${isBestSeller ? 'border-2 border-green-500/50 bg-green-500/5' : 'border border-white/10 bg-white/5 shadow-xl'}`}>
+                    {isBestSeller && <div className="absolute -top-4 left-6 bg-green-600 text-white font-black text-[10px] px-3 py-1 rounded-full animate-bounce">MAIS VENDIDO</div>}
 
-                    {/* Heading Atualizado */}
                     <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-[10px] font-bold text-blue-500 uppercase tracking-widest">
-                        <span className="material-symbols-outlined text-sm">verified</span>
-                        PRODUTO ORIGINAL EVERHEALTH™
+                      <div className="flex items-center gap-2 text-[10px] font-bold text-blue-500 uppercase">
+                        <span className="material-symbols-outlined text-sm">verified</span>PRODUTO ORIGINAL EVERHEALTH™
                       </div>
-                      <h1 className="text-white text-3xl md:text-4xl font-black leading-tight">Kit de Facas Premium EverHealth™</h1>
-                      <p className="text-gray-400 text-sm md:text-base font-medium">Corte profissional no seu churrasco — sem esforço.</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <div className="flex text-yellow-500">
-                          {[1,2,3,4,5].map(i => <span key={i} className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
-                        </div>
-                        <span className="text-xs text-gray-400 font-bold">(154 avaliações)</span>
-                      </div>
+                      <h1 className="text-white text-2xl md:text-4xl font-black leading-tight tracking-tight">Kit de Facas Profissional EverHealth™</h1>
+                      <p className="text-gray-400 text-sm md:text-base">Fio de navalha para quem não aceita menos que a perfeição.</p>
                     </div>
 
-                    {/* BARRA DE URGÊNCIA - Otimizada para Mobile e visibilidade máxima */}
-                    <div className="flex justify-center w-full">
-                      <div className="w-full bg-[#b22222] text-white rounded-lg py-4 px-4 text-center font-black text-sm md:text-lg tracking-wide animate-soft-pulse shadow-2xl border border-white/20">
-                        ⚠️ RESTAM APENAS 4 UNIDADES NO CENTRO DE DISTRIBUIÇÃO
+                    <div className="bg-[#b22222] text-white rounded-xl py-3 px-4 text-center font-black text-[11px] md:text-sm tracking-wide animate-soft-pulse mt-4">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="material-symbols-outlined text-lg">warning</span>
+                        <span>RESTAM APENAS 4 UNIDADES COM FRETE GRÁTIS</span>
                       </div>
                     </div>
                     
-                    {/* Price Section Dinâmica */}
-                    <div className="flex flex-col border-b border-white/10 pb-6 relative">
-                      {/* Selo Estratégico "Queima Total" */}
-                      <div className="absolute top-0 right-0 bg-yellow-400 text-black px-2 py-0.5 rounded-full font-black text-[9px] uppercase animate-pulse shadow-lg rotate-3">
-                         🔥 Queima Total Só Hoje
-                      </div>
-                      
+                    <div className="flex flex-col border-b border-white/10 py-5 md:py-6 relative">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-gray-500 text-lg line-through font-medium">R$ {currentProduct.oldPrice}</span>
-                        <div className="bg-green-500/20 text-green-500 text-[10px] font-black px-1.5 py-0.5 rounded uppercase">{currentProduct.discount}</div>
+                        <span className="text-gray-500 text-base md:text-lg line-through">R$ {currentProduct.oldPrice}</span>
+                        <div className="bg-green-500/20 text-green-500 text-[10px] font-black px-1.5 py-0.5 rounded">{currentProduct.discount}</div>
                       </div>
-                      <div className="flex flex-col">
-                        <span className="text-white text-5xl font-black tracking-tighter">R$ {currentProduct.price}</span>
-                        <span className="text-green-500 text-lg font-bold">em 12x de R$ {currentProduct.installment}</span>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex flex-col">
+                          <span className="text-white text-4xl md:text-5xl font-black tracking-tighter">R$ {currentProduct.price}</span>
+                          <span className="text-green-500 text-base md:text-lg font-bold">ou 12x de R$ {currentProduct.installment}</span>
+                        </div>
+                        <div className="bg-yellow-400 text-black px-2 py-0.5 rounded-full font-black text-[8px] md:text-[9px] uppercase animate-pulse shadow-lg rotate-3 shrink-0 self-center">
+                          🔥 Queima Total Só Hoje
+                        </div>
                       </div>
                     </div>
 
-                    {/* Quantity Selector */}
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 py-4">
                       <p className="text-white text-sm font-bold">Quantidade:</p>
-                      <div className="flex items-center justify-between bg-black/30 p-2 rounded-2xl border border-white/10">
-                         <button onClick={decrement} className="size-10 flex items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 transition-all">-</button>
-                         <div className="flex flex-col items-center">
-                            <span className="text-white font-black text-xl">{quantity}</span>
-                            <span className="text-[10px] text-gray-500 uppercase font-black">Unidade{quantity > 1 ? 's' : ''}</span>
-                         </div>
-                         <button onClick={increment} className="size-10 flex items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 transition-all">+</button>
+                      <div className="flex items-center justify-between bg-black/30 p-2 rounded-2xl border border-white/10 w-full md:w-fit md:min-w-[200px]">
+                         <button onClick={decrement} className="size-10 flex items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 active:scale-95 transition-all">-</button>
+                         <span className="text-white font-black text-lg md:text-xl px-4">{quantity} Kit{quantity > 1 ? 's' : ''}</span>
+                         <button onClick={increment} className="size-10 flex items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 active:scale-95 transition-all">+</button>
                       </div>
                     </div>
 
-                    {/* Frete/Entrega Status */}
-                    <div className="bg-green-500/5 border border-green-500/20 p-4 rounded-2xl">
-                       <div className="flex gap-3">
-                          <span className="material-symbols-outlined text-green-500 text-2xl">local_shipping</span>
-                          <div className="flex flex-col">
-                             <span className="text-green-500 font-black text-sm uppercase italic tracking-tighter">Frete Grátis FULL</span>
-                             <span className="text-white/70 text-xs">Chegará entre amanhã e depois de amanhã.</span>
-                          </div>
-                       </div>
-                    </div>
-                    
-                    {/* Botão de Compra Atualizado com subtexto solicitado */}
-                    <div className="flex flex-col gap-4 mt-2">
+                    <div className="flex flex-col gap-4 w-full">
                       <button 
-                        onClick={handleBuyClick}
-                        className="group relative w-full h-16 md:h-24 flex items-center justify-center rounded-2xl bg-[#25D366] hover:bg-[#20b858] transition-all overflow-hidden shadow-[0_20px_40px_-10px_rgba(37,211,102,0.5)] active:scale-95"
+                        id="main-buy-button"
+                        onClick={handleBuyClick} 
+                        className="group relative w-full h-20 md:h-24 flex items-center justify-center rounded-2xl bg-[#25D366] hover:bg-[#20b858] transition-all shadow-[0_15px_30px_-5px_rgba(37,211,102,0.4)] active:scale-[0.98] border-b-4 border-green-800"
                       >
-                        <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-45 -translate-x-full animate-[shimmer_3s_infinite]"></div>
-                        <div className="flex flex-col items-center">
-                           <span className="text-white text-xl md:text-2xl font-black uppercase tracking-widest drop-shadow-md">COMPRAR AGORA</span>
-                           <span className="text-white/90 text-[10px] md:text-xs font-bold uppercase tracking-tighter mt-1">Pague somente ao receber o produto</span>
+                        {isCarrierEnabled && (
+                          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black text-[8px] md:text-[9px] font-black px-3 py-1 rounded-full shadow-lg border border-green-500 z-10 whitespace-nowrap animate-bounce flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[12px] text-green-500">local_shipping</span>
+                            ENTREGA VIA TRANSPORTADORA ATIVADA
+                          </div>
+                        )}
+                        <div className="flex flex-col items-center px-4 text-center">
+                           <span className="text-white text-lg md:text-2xl font-black uppercase leading-none mb-1">
+                             {isCarrierEnabled ? 'Adquirir o meu agora' : 'QUERO PAGAR NA ENTREGA'}
+                           </span>
+                           <span className="text-white/90 text-[9px] md:text-xs font-bold uppercase tracking-tighter opacity-80">
+                             {isCarrierEnabled ? 'FINALIZAR COMPRA VIA TRANSPORTADORA' : 'PAGUE SOMENTE AO RECEBER O PRODUTO'}
+                           </span>
                         </div>
                       </button>
-
-                      <div className="flex gap-2">
-                        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${MSG_SUPPORT_GENERAL}`} target="_blank" className="flex-1 h-12 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/10 transition-all">
-                           <span className="material-symbols-outlined text-sm">chat</span>
-                           Suporte
+                      
+                      <div className="flex flex-col gap-2 w-full">
+                        <a 
+                          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${MSG_SUPPORT_GENERAL}`} 
+                          target="_blank" 
+                          className="flex h-12 items-center justify-center gap-2 bg-white/5 border border-white/10 rounded-xl text-white font-bold hover:bg-white/10 transition-colors text-sm"
+                        >
+                          <span className="material-symbols-outlined text-lg text-[#25D366]">chat</span>Falar com Suporte
                         </a>
+                        
+                        <button 
+                          onClick={() => setIsHelpModalOpen(true)}
+                          className="flex items-center justify-center gap-1.5 text-white/40 hover:text-white text-[11px] md:text-sm font-medium transition-colors py-2"
+                        >
+                          <span className="material-symbols-outlined text-[16px] md:text-[18px]">help</span>
+                          Dúvidas na finalização? Clique aqui
+                        </button>
                       </div>
-
-                      <button onClick={() => setIsHelpModalOpen(true)} className="text-gray-400 hover:text-white text-xs font-bold flex items-center justify-center gap-1 transition-colors">
-                        <span className="material-symbols-outlined text-sm">help</span>
-                        Dúvidas na finalização? Clique aqui
-                      </button>
-                    </div>
-
-                    {/* Benefícios e Accordions */}
-                    <div className="flex flex-col gap-4 pt-4 border-t border-white/10">
-                       <div className="flex items-start gap-3">
-                          <span className="material-symbols-outlined text-gray-500">replay</span>
-                          <div className="flex flex-col">
-                             <span className="text-blue-500 font-bold text-xs">Devolução grátis</span>
-                             <span className="text-gray-400 text-[10px]">Você tem 7 dias a partir do recebimento.</span>
-                          </div>
-                       </div>
-                    </div>
-
-                    <div className="flex flex-col gap-2 pt-4">
-                      <details className="group border-b border-white/10 pb-4" open={isDetailsOpen}>
-                        <summary className="flex justify-between items-center font-bold text-white cursor-pointer list-none uppercase text-xs tracking-widest">
-                          <span>O que vem na caixa</span>
-                          <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-                        </summary>
-                        <ul className="text-gray-400 text-base mt-4 grid grid-cols-1 gap-3">
-                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca do Chef</li>
-                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Cutelo</li>
-                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca de Pão</li>
-                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Faca de Fruta</li>
-                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Descascador</li>
-                          <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div> 1 Tesoura de Cozinha</li>
-                        </ul>
-                      </details>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* --- PROVA SOCIAL (FINAL DA PÁGINA) --- */}
-              <div className="w-full flex flex-col gap-10 mt-12 border-t border-white/5 pt-12">
-                <div className="flex flex-col gap-8">
-                  <div className="flex items-center gap-4">
-                    <div className="h-px flex-1 bg-white/10"></div>
-                    <h3 className="text-white text-lg font-black uppercase tracking-[0.2em] text-center">O que nossos clientes estão recebendo em casa</h3>
-                    <div className="h-px flex-1 bg-white/10"></div>
-                  </div>
+              <div className="mt-12">
+                <h3 className="text-white text-xl font-black uppercase text-center mb-10 tracking-widest">O que os Brutos estão falando</h3>
+                
+                <div className="flex overflow-x-auto gap-4 pb-10 hide-scrollbar snap-x touch-pan-x">
+                  {videoTestimonials.map((video) => (
+                    <div key={video.id} className="snap-center shrink-0 w-[240px] md:w-[260px] aspect-[9/16] rounded-3xl overflow-hidden relative group border border-white/10 bg-black shadow-lg">
+                       <video className="w-full h-full object-cover" controls playsInline poster={video.poster}><source src={video.url} type="video/mp4" /></video>
+                       <div className="absolute bottom-4 left-4 text-white font-black text-sm drop-shadow-lg">{video.label}</div>
+                    </div>
+                  ))}
+                </div>
 
-                  {/* Vídeos de Prova Social com correção de scroll */}
-                  <div className="flex overflow-x-auto gap-4 pb-4 hide-scrollbar snap-x px-2 touch-pan-x" style={{ WebkitOverflowScrolling: 'touch' }}>
-                    {videoTestimonials.map((video) => (
-                      <div key={video.id} className="snap-center shrink-0 w-[240px] md:w-[280px] aspect-[9/16] rounded-3xl overflow-hidden relative group border border-white/10 bg-black shadow-2xl">
-                         <video 
-                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all"
-                            controls
-                            playsInline
-                            poster={video.poster}
-                            preload="metadata"
-                          >
-                            <source src={video.url} type="video/mp4" />
-                          </video>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                  <div className="grid grid-cols-2 gap-4 h-fit">
+                    {customerImages.map((src, idx) => (
+                      <div key={idx} onClick={() => setSelectedImage(src)} className="aspect-square rounded-2xl overflow-hidden cursor-zoom-in border border-white/10 shadow-lg hover:border-primary/50 transition-all bg-white/5">
+                        <img src={src} alt={`Comentário de Cliente - Kit de Facas Profissional Everhealth ${idx + 1}`} className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity" />
                       </div>
                     ))}
                   </div>
 
-                  {/* Fotos e Avaliações de Clientes */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                    {/* Fotos */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {customerImages.map((src, idx) => (
-                        <div 
-                          key={idx} 
-                          onClick={() => setSelectedImage(src)}
-                          className="aspect-square rounded-2xl overflow-hidden cursor-zoom-in border border-white/5 hover:border-white/20 transition-all shadow-xl"
-                        >
-                          <img src={src} alt="Cliente Everhealth" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+                  <div className="bg-[#161022] p-6 md:p-10 rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col gap-8">
+                    <div className="flex justify-between items-center border-b border-white/10 pb-6">
+                      <h4 className="text-white font-black text-xl md:text-2xl uppercase tracking-tighter">COMENTÁRIOS</h4>
+                      <div className="flex items-center gap-2">
+                        <span className="text-yellow-500 font-black text-xl md:text-2xl">4.8</span>
+                        <div className="flex text-yellow-500">
+                          <span className="material-symbols-outlined text-sm md:text-base" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                          <span className="material-symbols-outlined text-sm md:text-base" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                          <span className="material-symbols-outlined text-sm md:text-base" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                          <span className="material-symbols-outlined text-sm md:text-base" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                          <span className="material-symbols-outlined text-sm md:text-base" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
                         </div>
-                      ))}
+                      </div>
                     </div>
 
-                    {/* Comentários Atualizados - Fonte maior para acessibilidade e menos espaço excessivo */}
-                    <div className="bg-white/5 p-8 rounded-[2rem] border border-white/10 shadow-2xl h-full flex flex-col justify-center">
-                       <div className="flex items-center justify-between mb-8">
-                          <h4 className="text-white font-black text-xl uppercase tracking-tighter">Comentários</h4>
-                          <div className="flex items-center gap-2">
-                             <span className="text-yellow-500 font-black text-2xl">4.8</span>
-                             <div className="flex items-center gap-2">
-                               {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-lg text-yellow-500" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
-                             </div>
+                    <div className="flex flex-col gap-10">
+                      <div className="flex flex-col gap-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="text-white font-bold block text-base md:text-lg">Rafael P. – Santo André/SP</span>
+                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Há 1 dia</span>
                           </div>
-                       </div>
-                       <div className="space-y-6">
-                          {/* Rafael P. */}
-                          <div className="border-b border-white/5 pb-5">
-                             <div className="flex flex-col mb-1.5">
-                                <span className="text-white font-bold text-base">Rafael P. – Santo André/SP</span>
-                                <span className="text-gray-500 text-[10px] uppercase font-bold tracking-widest">Há 1 dia</span>
-                             </div>
-                             <div className="flex text-yellow-500 mb-2">
-                                {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
-                             </div>
-                             <p className="text-white/90 text-lg italic leading-relaxed font-light">“Foi a primeira vez que comprei pagando só na entrega. Confesso que fiquei com receio, mas chegou certinho e as facas são muito boas.”</p>
-                             <div className="flex items-center gap-2 mt-3">
-                                <span className="bg-green-500/20 text-green-400 text-[10px] font-black px-2 py-0.5 rounded uppercase">Compra Verificada</span>
-                             </div>
-                          </div>
-                          
-                          {/* Juliana R. */}
-                          <div className="border-b border-white/5 pb-5">
-                             <div className="flex flex-col mb-1.5">
-                                <span className="text-white font-bold text-base">Juliana R. – Contagem/MG</span>
-                                <span className="text-gray-500 text-[10px] uppercase font-bold tracking-widest">Há 3 dias</span>
-                             </div>
-                             <div className="flex text-yellow-500 mb-2">
-                                {[1,2,3,4].map(s => <span key={s} className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
-                                <span className="material-symbols-outlined text-xs">star</span>
-                             </div>
-                             <p className="text-white/90 text-lg italic leading-relaxed font-light">“As facas cortam muito bem, gostei bastante. Só achei a caixa simples, mas o produto em si é excelente. Recomendo.”</p>
-                             <div className="flex items-center gap-2 mt-3">
-                                <span className="bg-green-500/20 text-green-400 text-[10px] font-black px-2 py-0.5 rounded uppercase">Compra Verificada</span>
-                             </div>
-                          </div>
+                        </div>
+                        <div className="flex text-yellow-500">
+                          {[1,2,3,4,5].map(i => <span key={i} className="material-symbols-outlined text-xs md:text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
+                        </div>
+                        <p className="text-white/80 italic text-sm leading-relaxed">
+                          “Foi a primeira vez que comprei pagando só na entrega. Confesso que fiquei com receio, mas chegou certinho e as facas são muito boas.”
+                        </p>
+                        <div className="bg-[#1a3a2a] text-[#25D366] text-[9px] font-black px-3 py-1 rounded w-fit uppercase tracking-tighter mt-1 border border-[#25D366]/20">
+                          COMPRA VERIFICADA
+                        </div>
+                      </div>
 
-                          {/* Márcio T. */}
-                          <div className="pb-2">
-                             <div className="flex flex-col mb-1.5">
-                                <span className="text-white font-bold text-base">Márcio T. – Duque de Caxias/RJ</span>
-                                <span className="text-gray-500 text-[10px] uppercase font-bold tracking-widest">Há 5 dias</span>
-                             </div>
-                             <div className="flex text-yellow-500 mb-2">
-                                {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
-                             </div>
-                             <p className="text-white/90 text-lg italic leading-relaxed font-light">“Produto exatamente como no site. Já usei várias vezes e continuam afiadas. Compra tranquila, sem dor de cabeça.”</p>
-                             <div className="flex items-center gap-2 mt-3">
-                                <span className="bg-green-500/20 text-green-400 text-[10px] font-black px-2 py-0.5 rounded uppercase">Compra Verificada</span>
-                             </div>
+                      <div className="flex flex-col gap-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="text-white font-bold block text-base md:text-lg">Juliana R. – Contagem/MG</span>
+                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Há 3 dias</span>
                           </div>
-                       </div>
+                        </div>
+                        <div className="flex text-yellow-500">
+                          {[1,2,3,4,5].map(i => <span key={i} className="material-symbols-outlined text-xs md:text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
+                        </div>
+                        <p className="text-white/80 italic text-sm leading-relaxed">
+                          “As facas cortam muito bem, gostei bastante. Só achei a caixa simples, mas o produto em si é excelente. Recomendo.”
+                        </p>
+                        <div className="bg-[#1a3a2a] text-[#25D366] text-[9px] font-black px-3 py-1 rounded w-fit uppercase tracking-tighter mt-1 border border-[#25D366]/20">
+                          COMPRA VERIFICADA
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="text-white font-bold block text-base md:text-lg">Márcio T. – Duque de Caxias/RJ</span>
+                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Há 5 dias</span>
+                          </div>
+                        </div>
+                        <div className="flex text-yellow-500">
+                          {[1,2,3,4,5].map(i => <span key={i} className="material-symbols-outlined text-xs md:text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>)}
+                        </div>
+                        <p className="text-white/80 italic text-sm leading-relaxed">
+                          “Produto exatamente como no site. Já usei várias vezes e continuam afiadas. Compra tranquila, sem dor de cabeça.”
+                        </p>
+                        <div className="bg-[#1a3a2a] text-[#25D366] text-[9px] font-black px-3 py-1 rounded w-fit uppercase tracking-tighter mt-1 border border-[#25D366]/20">
+                          COMPRA VERIFICADA
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -480,18 +424,6 @@ const PurchasePage: React.FC = () => {
           </main>
         </div>
       </div>
-
-      <style>{`
-        @keyframes shimmer {
-          0% { transform: translateX(-150%) skewX(-45deg); }
-          100% { transform: translateX(250%) skewX(-45deg); }
-        }
-        .animate-[shimmer_3s_infinite] {
-          animation: shimmer 3s infinite;
-        }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </div>
   );
 };

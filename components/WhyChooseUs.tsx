@@ -50,7 +50,7 @@ const WhyChooseUs: React.FC = () => {
         >
           <img 
             src={selectedImage} 
-            alt="Zoom cliente" 
+            alt="Cliente satisfeito usando o Kit de Facas Everhealth™ - Foto ampliada" 
             className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
           />
           <button className="absolute top-4 right-4 text-white p-2 bg-white/10 rounded-full hover:bg-white/20">
@@ -109,7 +109,7 @@ const WhyChooseUs: React.FC = () => {
               >
                 <img 
                   src={src} 
-                  alt={`Foto cliente ${index + 1}`}
+                  alt={`Kit de Facas Everhealth Profissional - Foto Real de Cliente ${index + 1}`}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>

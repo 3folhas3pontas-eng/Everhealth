@@ -25,23 +25,23 @@ const Features: React.FC = () => {
   const featureList = [
     {
       icon: "science",
-      title: "Lâmina Blindada que Não Gruda",
-      description: "Nada pior que a carne grudando na faca. Nosso revestimento garante que cada fatia deslize suavemente, sem esforço."
+      title: "Lâmina Blindada",
+      description: "Aço Carbono de alta qualidade com tratamento antiaderente. A gordura não gruda e o corte desliza com precisão cirúrgica."
     },
     {
       icon: "diamond",
-      title: "Fio de Navalha de Longa Duração",
-      description: "Chega de amolar a faca a cada churrasco. O tratamento térmico do aço mantém o corte cirúrgico por muito mais tempo."
+      title: "Fio de Navalha",
+      description: "Afiação profissional de fábrica que atravessa carnes, ossos e congelados. Pronta para o uso pesado no churrasco."
     },
     {
       icon: "front_hand",
-      title: "Pegada Firme e Segura (Mesmo Molhada)",
-      description: "Tenha controle total. O cabo anatômico não escorrega, evitando acidentes e garantindo firmeza até nos cortes mais pesados."
+      title: "Pegada Antiderrapante",
+      description: "Cabos em Polímero de Alta Densidade com textura soft-touch. Segurança total mesmo com as mãos molhadas ou sujas de gordura."
     },
     {
-      icon: "restaurant_menu",
-      title: "Arsenal Completo para Sua Cozinha",
-      description: "Você não compra apenas uma faca, mas um kit profissional com cutelo, faca de pão, frutas, tesoura e descascador para qualquer desafio."
+      icon: "health_and_safety",
+      title: "100% Higiênico",
+      description: "Diferente da madeira, nosso material não absorve umidade nem acumula bactérias. Limpeza rápida e durabilidade vitalícia."
     }
   ];
 
@@ -50,10 +50,10 @@ const Features: React.FC = () => {
       <div className="flex flex-col gap-6 text-center items-center">
         <div className="flex flex-col gap-4">
           <h1 className="text-slate-900 dark:text-white tracking-tight text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl max-w-3xl">
-            O Segredo do Corte Perfeito em Cada Detalhe
+            A Engenharia que sua Cozinha Merece
           </h1>
           <p className="text-slate-600 dark:text-slate-400 text-lg font-normal leading-normal max-w-3xl">
-            Descubra a combinação de design moderno, materiais de alta qualidade e engenharia de precisão que torna o nosso kit de facas essencial para qualquer cozinha.
+            Unimos a tradição da cutelaria profissional com materiais modernos para entregar um kit que não perde o fio e não te deixa na mão.
           </p>
         </div>
       </div>
